@@ -21,9 +21,9 @@ class DashboardController extends Controller
     {
         $db = $this->getDI()->get('db');
 
-        $sql = "Select * from konsultasi";
+        $sql = "Select * from bidan";
 
-        $result = $db->fetchOne($sql, \Phalcon\Db\Enum::FETCH_ASSOC);
+        $result = $db->fetchAll($sql, \Phalcon\Db\Enum::FETCH_ASSOC);
 
         echo var_dump($result);
 

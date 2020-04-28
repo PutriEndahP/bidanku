@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Logger\Adapter\File as Logger;
-use Phalcon\Session\Adapter\Files as Session;
 use Phalcon\Session\Manager as Manager;
 use Phalcon\Http\Response\Cookies;
 use Phalcon\Security;
@@ -11,21 +10,51 @@ use Phalcon\Url;
 use Phalcon\Escaper;
 use Phalcon\Flash\Direct as FlashDirect;
 use Phalcon\Flash\Session as FlashSession;
-use Phalcon\Session\Adapter\Files;
 use Phalcon\Events\Event;
 use Phalcon\Events\Manager as EventsManager;
 use MyApp\Listeners\Listener as Listener;
+use Phalcon\Session\Adapter\Stream;
+
+$di->setShared('session',function () {
+        $session = new Manager( );
+
+        $files = new Stream(
+            [
+                'savePath' => '/mnt/d/git/bidanku/session',
+            ]
+        );
+        
+        $session
+            ->setAdapter($files)
+            ->start();
+
+        return $session;
+    }
+);
+
+// $di->set(
+//     'flashSession',
+//     function () {
+        
+//         $session = new Manager();
+//         $files = new Stream(
+//             [
+//                 'savePath' => '/mnt/e/git/youmatter/session',
+//             ]
+//         );
+//         // $session->setHandler($files);
+
+//         $escaper = new Escaper();
+//         $flash   = new FlashSession($escaper, $session);
+
+//         return $flash;
+//     }
+// );
+
 
 $di['config'] = function() use ($config) {
-	return $config;
+    return $config;
 };
-
-$di->setShared('session', function() {
-    $session = new \Phalcon\Session\Adapter\Files();
-	$session->start();
-
-	return $session;
-});
 
 
 $di['dispatcher'] = function() use ($di, $defaultModule) {
@@ -38,11 +67,11 @@ $di['dispatcher'] = function() use ($di, $defaultModule) {
 };
 
 $di['url'] = function() use ($config, $di) {
-	$url = new Url();
+    $url = new Url();
 
     $url->setBaseUri($config->url['baseUrl']);
 
-	return $url;
+    return $url;
 };
 
 $di['voltService'] = function($view) use ($config) {
@@ -88,7 +117,10 @@ $di->set(
 $di->set(
     'flash',
     function () {
-        $flash = new FlashDirect(
+        $escaper = new Escaper();
+        $flash = new FlashDirect($escaper);
+        $flash->setImplicitFlush(false);
+        $flash->setCssClasses(
             [
                 'error'   => 'alert alert-danger',
                 'success' => 'alert alert-success',
@@ -101,42 +133,27 @@ $di->set(
     }
 );
 
-$di->set(
-    'flashSession',
-    function () {
-        $flash = new FlashSession(
-            // [
-            //     'error'   => 'alert alert-danger',
-            //     'success' => 'alert alert-success',
-            //     'notice'  => 'alert alert-info',
-            //     'warning' => 'alert alert-warning',
-            // ]
-        );
 
-        $flash->setAutoescape(false);
+
+// $di->set(
+//     'flashSession',
+//     function () {
+//         $flash = new FlashSession(
+//             [
+//                 'error'   => 'alert alert-danger',
+//                 'success' => 'alert alert-success',
+//                 'notice'  => 'alert alert-info',
+//                 'warning' => 'alert alert-warning',
+//             ]
+//         );
+
+//         $flash->setAutoescape(false);
         
-        return $flash;
-    }
-);
-
-
-// $di->setShared('db', function(){
-//     $config = $this->getConfig();
-
-//     $class = '\Phalcon\Db\Adapter\Pdo\\' . $config->database->adapter;
-//     $params = [
-//         'host' => $config->database->host,
-//         'username' => $config->database->username,
-//         'password' => $config->database->password,
-//         'dbname' => $config->database->dbname,
-//         'port' => $config->database->port,
-//         'charset' => $config->database->charset
-//     ];
-//     if ($config->database->adapter == 'Postgresql' || $config->database->adapter == 'Sqlite'){
-//         unset($params['charset']);
+//         return $flash;
 //     }
-//     return new $class($params);
-// });
+// );
+
+
 
 $di['db'] = function () use ($config) {
 

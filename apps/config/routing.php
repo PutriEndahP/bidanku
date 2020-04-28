@@ -42,9 +42,18 @@ $di['router'] = function() use ($defaultModule, $modules, $di, $config) {
 	$router->addGet('/', [
 	    'namespace' => 'Phalcon\Init\Dashboard\Controllers\Web',
 		'module' => 'dashboard',
-	    'controller' => 'dashboard',
+	    'controller' => 'index',
 	    'action' => 'index'
 	]);
+
+	$router->notFound(
+		[
+		    'namespace' => 'Phalcon\Init\Dashboard\Controllers\Web',
+			'module' => 'dashboard',
+		    'controller' => 'index',
+		    'action' => 'show404'
+		]
+	);
 
 	// /**
 	//  * Not Found Routing
