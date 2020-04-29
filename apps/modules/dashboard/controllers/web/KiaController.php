@@ -149,6 +149,8 @@ class KiaController extends Controller
 
         $kia->delete();
 
+         $this->flashSession->success("Berhasil menghapus KIA");
+
         $this->response->redirect('daftarkia');
 
     }

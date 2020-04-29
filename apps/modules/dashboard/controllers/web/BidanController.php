@@ -36,7 +36,7 @@ class BidanController extends Controller
         // $ibu->status = 0;
         $usernames = bidan::findFirst("username = '$bidan->username'");
         if($usernames){
-            $this->flashSession->error("Gagal register. Username telah digunakan.");
+            $this->flashSession->error("Gagal register. Username Bidan telah digunakan.");
 
             return $this->response->redirect('registerbidan');
 

@@ -105,4 +105,38 @@ class KbController extends Controller
         // $this->view->kia = $kia;
       // $this->view->pick('kia/detailkia');
   }
+
+  public function hapuskbAction($idKb)
+  {
+      $kb = kb::findFirst("idKb='$idKb'");
+
+      $kb->delete();
+
+      $this->flashSession->success("Berhasil menghapus buku KB");
+
+      $this->response->redirect('daftarkb');
+
+  }
+
+  public function editkbAction($idKb)
+  {
+    $this->view->kb = (array) kb::findFirst("idKb='$idKb'");
+  }
+
+  public function storeeditkbAction()
+  {
+
+    $idKb = $this->request->getPost('idKb');
+
+    $kb= kb::findFirst("idKb='$idKb'");
+
+    $kb->tanggal_datang = $this->request->getPost('tanggal_datang');
+    $kb->berat_badan = $this->request->getPost('berat_badan');
+    $kb->tekanan_darah = $this->request->getPost('tekanan_darah');
+    $kb->tanggal_kembali = $this->request->getPost('tanggal_kembali');
+  
+    if ($kb->update()){
+      $this->response->redirect('daftarkb');
+    }
+  }
 }

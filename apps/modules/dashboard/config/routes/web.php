@@ -363,4 +363,25 @@ $router->addGet('/detailkb/{idKb}', [
     'action' => 'detailkb'
 ]);
 
+$router->addGet('/hapuskb/{idKb}', [
+    'namespace' => $namespace,
+    'module' => 'dashboard',
+    'controller' => 'Kb',
+    'action' => 'hapuskb'
+]);
+
+$router->addGet('/editkb/{idKb}', [
+    'namespace' => $namespace,
+    'module' => 'dashboard',
+    'controller' => 'Kb',
+    'action' => 'editkb'
+]);
+
+$router->addPost('/storeeditkb', [
+    'namespace' => $namespace,
+    'module' => 'dashboard',
+    'controller' => 'Kb',
+    'action' => 'storeeditkb'
+]);
+
 return $router;

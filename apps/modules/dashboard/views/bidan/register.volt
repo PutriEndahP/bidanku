@@ -145,8 +145,8 @@
             </nav>
 
 
-            <div style="margin-left: 90px; margin-top: 30px; width: 30%; font-family:'GothamRounded-Medium';">
-            <p></p>
+            <div style="margin-left: 90px; margin-top: 30px; width: 30%; font-family:'GothamRounded-Medium'; color: red;">
+            <p><?php echo $this->flashSession->output() ?></p>
             
             </div>
             <form action="registerbidan" method = "post" style="margin-left: 90px; margin-top: 30px; width: 30%; font-family:'GothamRounded-Medium';">

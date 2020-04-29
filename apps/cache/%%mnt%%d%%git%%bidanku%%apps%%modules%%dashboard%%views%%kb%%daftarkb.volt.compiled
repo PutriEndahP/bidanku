@@ -161,7 +161,7 @@
 <!--                         <a href="<?= $this->url->get('logout') ?>">
                             Logout
                         </a> -->
-                    <h2 style="font-family:'GothamRounded-Medium'; float: right;">Daftar KIA Pasien <?= $this->session->get('bidan')['username'] ?> </h2>
+                    <h2 style="font-family:'GothamRounded-Medium'; float: right;">Daftar KB Pasien <?= $this->session->get('bidan')['username'] ?> </h2>
                    <!--  <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button> -->
@@ -173,8 +173,8 @@
 
 
 
-    <div style="margin-left: 0px; margin-top: 30px; width: 30%; font-family:'GothamRounded-Medium';">
-            <p></p>
+    <div style="margin-left: 90px; margin-top: 30px; width: 30%; font-family:'GothamRounded-Medium'; color: blue;">
+            <p><?php echo $this->flashSession->output() ?></p>
             
     </div>
     <div class="home-content">
@@ -215,22 +215,22 @@
                         // target: "_blank",
                     }
                 },
-                // {
-                //     title: "Edit Buku KIA", field: "link", formatter: "link", formatterParams: {
-                //         labelField: "name",
-                //         label: "Edit KIA",
-                //         urlPrefix: "<?= $this->url->get('editkia/') ?>",
-                //         // target: "_blank",
-                //     }
-                // },
-                // {
-                //     title: "Hapus", field: "link", formatter: "link", formatterParams: {
-                //         labelField: "name",
-                //         label: "Hapus",
-                //         urlPrefix: "<?= $this->url->get('hapuskia/') ?>",
-                //         // target: "_blank",
-                //     }
-                // },
+                {
+                    title: "Edit Buku KB", field: "link", formatter: "link", formatterParams: {
+                        labelField: "name",
+                        label: "Edit",
+                        urlPrefix: "<?= $this->url->get('editkb/') ?>",
+                        // target: "_blank",
+                    }
+                },
+                {
+                    title: "Hapus", field: "link", formatter: "link", formatterParams: {
+                        labelField: "name",
+                        label: "Hapus",
+                        urlPrefix: "<?= $this->url->get('hapuskb/') ?>",
+                        // target: "_blank",
+                    }
+                },
                 
             ],
         });

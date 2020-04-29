@@ -69,9 +69,9 @@
                 </li> -->
                 
                 <li>
-                    <a href="daftarkia">Kesehatan Ibu Anak</a>
+                    <a href="../daftarkia">Kesehatan Ibu Anak</a>
                 </li>
-                <!-- <li>
+               <!--  <li>
                     <a href="{{ url('admin/jenissurat') }}">Keluarga Berencana</a>
                 </li> -->
              
@@ -92,8 +92,8 @@
                         Daftar Pasien
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="daftaribu">Ibu</a>
-                        <a class="dropdown-item" href="daftaranak">Anak</a>
+                        <a class="dropdown-item" href="../daftaribu">Ibu</a>
+                        <a class="dropdown-item" href="../daftaranak">Anak</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -101,7 +101,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Profil</a>
-                        <a class="dropdown-item" href="logoutbidan">Keluar</a>
+                        <a class="dropdown-item" href=".//logoutbidan">Keluar</a>
                 </li>
 
                 <!-- <li>
@@ -161,7 +161,7 @@
 <!--                         <a href="{{ url('logout') }}">
                             Logout
                         </a> -->
-                    <h2 style="font-family:'GothamRounded-Medium'; float: right;">Daftar KB Pasien {{ session.get('bidan')['username'] }} </h2>
+                    <h2 style="font-family:'GothamRounded-Medium'; float: right;">Form Edit KB </h2>
                    <!--  <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-align-justify"></i>
                     </button> -->
@@ -173,69 +173,56 @@
 
 
 
-    <div style="margin-left: 90px; margin-top: 30px; width: 30%; font-family:'GothamRounded-Medium'; color: blue;">
-            <p><?php echo $this->flashSession->output() ?></p>
+    <div style="margin-left: 0px; margin-top: 30px; width: 30%; font-family:'GothamRounded-Medium';">
+            <p></p>
             
     </div>
-    <div class="home-content">
-        <h2 class="dashboard-title"></h2>
-        <div id="example-table"></div>
-    </div>
 
-    <script>
+     <form action="http://bidanku.local/storeeditkb" method = "post" style="margin-left: 90px; width: 80%; position: center; font-family:'GothamRounded-Medium';">
+
+    <!-- <form class="data-form" action="storekmsibu" method="post" enctype="multipart/form-data">
+ -->
+        <input type="hidden" name="idIbu" id="idIbu" value= {{ kb['idIbu'] }}>
+
+        <!--  <input type="hidden" name="idAnak" id="idAnak" value= {{ kb['idAnak'] }}> -->
+
+         <input type="hidden" name="idKb" id="idKb" value= {{ kb['idKb'] }}>
+
+        <div class="form-group row">
+          <label for="example-date-input" class="col-2 col-form-label">Tanggal Datang</label>
+            <div class="col-10">
+                <input class="form-control" name="tanggal_datang" type="date" placeholder="Tanggal Datang" id="example-date-input" value="{{ kb['tanggal_datang'] }}">
+            </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-2 col-form-label">Berat Badan</label>
+            <div class="col-10">
+                <input class="form-control" name="berat_badan" type="text" id="example-text-input" value="{{ kb['berat_badan'] }}">
+            </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-text-input" class="col-2 col-form-label">Tekanan Darah</label>
+            <div class="col-10">
+                <input class="form-control" name="tekanan_darah" type="text" id="example-text-input" value="{{ kb['tekanan_darah'] }}">
+            </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="example-date-input" class="col-2 col-form-label">Tanggal Kembali</label>
+            <div class="col-10">
+                <input class="form-control" name="tanggal_kembali" type="date" placeholder="Tanggal Datang" id="example-date-input" value="{{ kb['tanggal_kembali'] }}">
+            </div>
+        </div>
+
+<!-- 
+        <input class="log-btn" type="submit" value="Simpan" style="background-color: #c01f28;"> -->
+       <button class="btn btn-primary" type="submit" style="background-color:  #008CBA; margin-top: 20px; margin-left: 10px;">Simpan</button>
+
+    </form>
 
 
-            
-
-
-    // tabelnya
-        var table = new Tabulator("#example-table", {
-            // height: "345px",
-            layout: "fitColumns",
-            pagination:"local",
-            paginationSize:15,
-            layout:"fitColumns",
-            placeholder: "Tidak Ada KIA",
-            columns: [
-                {title: "No", field: "no", formatter: "rownum", width: 10},
-                {title: "Tanggal Datang", field: "tanggal_datang", headerFilter:"input"},
-                // {title: "Nama", field: "nama", headerFilter:"input"},
-                {title: "Nama Ibu", field: "namaIbu", headerFilter:"input"},
-                // {title: "Nama Customer", field: "customer", headerFilter:"input"},
-                // {title: "Jenis Surat", field: "jenis_surat", headerFilter:"input"},
-                // {title: "Pembuat", field: "pembuat", headerFilter:"input"},
-                // {title: "Upload", field: "status", headerFilter:"input"},
-                // {title: "Verifikasi", field: "verifikasi", headerFilter:"input"},
-                // {title: "Status", field: "status_surat", headerFilter:"input"},
-                {
-                    title: "Lihat Buku KB", field: "link", formatter: "link", formatterParams: {
-                        labelField: "name",
-                        label: "LIhat KB",
-                        urlPrefix: "{{ url('detailkb/') }}",
-                        // target: "_blank",
-                    }
-                },
-                {
-                    title: "Edit Buku KB", field: "link", formatter: "link", formatterParams: {
-                        labelField: "name",
-                        label: "Edit",
-                        urlPrefix: "{{ url('editkb/') }}",
-                        // target: "_blank",
-                    }
-                },
-                {
-                    title: "Hapus", field: "link", formatter: "link", formatterParams: {
-                        labelField: "name",
-                        label: "Hapus",
-                        urlPrefix: "{{ url('hapuskb/') }}",
-                        // target: "_blank",
-                    }
-                },
-                
-            ],
-        });
-        table.setData("{{ url('listkb') }}");
-    </script>
 
 
     <!-- <div>
